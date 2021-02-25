@@ -360,5 +360,67 @@ for expression1; expression2; expression3 {
 2.break和continue还可以跟着标号，用来跳到多重循环中的外层循环
 
 3.for配合range可以用于读取slice和map的数据
+例子：
+for k,v:=range map {
+    fmt.Println("map's key:",k)
+    fmt.Println("map's val:",v)
+}
+
+注意:
+由于go支持 “多值返回”, 而对于“声明而未被调用”的变量, 编译器会报错, 在这种较为矛盾的情况下,可以使用_来丢弃不需要的返回值
+例子:
+for _, v := range map{
+    fmt.Println("map's val:", v)
+}
 ```
+
+###### switch
+
+```go
+语法:
+switch index {
+case expr1:
+	todo something
+case expr2:
+	todo something
+case expr3:
+	todo something
+default:
+	todo something
+}
+
+规则：
+（1）index和expr1、expr2、expr3的类型必须一致。
+（2）go的switch非常灵活，表达式不必是常量或整数，执行的过程从上至下，直到找到匹配项；而如果switch没有表达式，它会匹配true
+（3）可以多值聚合在了一个case里面，同时，go语言中switch默认相当于每个case自带break，匹配成功后不会自动向下执行其他 case，而是跳出整个switch,但是可以使用 fallthrough 强制执行后面的 case 代码
+
+例子:
+i := 10
+switch i {
+case 1:
+	fmt.Println("i is equal to 1")
+case 2, 3, 4:
+	fmt.Println("i is equal to 2, 3 or 4")
+case 10:
+	fmt.Println("i is equal to 10")
+fallthrough //继续执行default
+default:
+	fmt.Println("All I know is that i is an integer")
+}
+```
+
+###### 函数
+
+```go
+概念:函数是go里面的核心设计，它通过关键字func来声明
+
+关键字 func 用来声明一个函数funcName
+	函数可以有一个或者多个参数，每个参数后面带有类型，通过,分隔
+	函数可以返回多个值
+	如果只有一个返回值且不声明返回值变量，可以省略包括返回值的括号
+	如果没有返回值，那么就直接省略最后的返回信息
+	如果有返回值， 那么必须在函数的外层添加 return 语句
+```
+
+
 
